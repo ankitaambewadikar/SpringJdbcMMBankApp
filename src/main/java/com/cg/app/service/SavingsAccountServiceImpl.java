@@ -116,9 +116,14 @@ public class SavingsAccountServiceImpl implements SavingsAccountService {
 	}
 
 	
-	public List<SavingsAccount> sortBy(int choice)
+	
+
+
+	@Override
+	public List<SavingsAccount> sortBy(int choice, int choiceSort)
 			throws ClassNotFoundException, SQLException, AccountNotFoundException {
-		return savingsAccountDAO.sortBy(choice);
+		
+		return savingsAccountDAO.sortBy(choice,choiceSort);
 	}
 
 }

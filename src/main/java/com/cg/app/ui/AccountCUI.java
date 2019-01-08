@@ -390,7 +390,7 @@ public class AccountCUI {
 	}
 
 	private  void sortMenu() {
-		int choice = 0;
+		int choiceSort = 0;
 		do {
 			System.out.println("+++++Ways of Sorting+++++++");
 			System.out.println("1. Account Number");
@@ -398,100 +398,57 @@ public class AccountCUI {
 			System.out.println("3. Account Balance");
 			System.out.println("4. Exit from Sorting");
 
-			choice = scanner.nextInt();
-			performSort(choice);
+			int choice = scanner.nextInt();
+			if(choice != 4) {
+				
+				System.out.println("1 Sort By Ascending Order.");
+				System.out.println("2 Sort By Descending order");
+				System.out.println("Make your choice");
+				choiceSort = scanner.nextInt();
+				
+				switch (choice) {
+				case 1:
+					try {
+						List<SavingsAccount> listOne = savingsAccountService.sortBy(choice,choiceSort);
+						for (SavingsAccount sort: listOne) {
+							System.out.println(sort);
+						}
+					} catch (ClassNotFoundException | SQLException | AccountNotFoundException e) {
+						
+						e.printStackTrace();
+					}
+					
+					break;
+					
+				case 2:
+					try {
+						List<SavingsAccount> listTwo = savingsAccountService.sortBy(choice,choiceSort);
+						for (SavingsAccount sort: listTwo) {
+							System.out.println(sort);
+						}
+					} catch (ClassNotFoundException | SQLException | AccountNotFoundException e) {
+						
+						e.printStackTrace();
+					}break;
+				case 3:
+					try {
+						List<SavingsAccount> listThree = savingsAccountService.sortBy(choice,choiceSort);
+						for (SavingsAccount sort: listThree) {
+							System.out.println(sort);
+						}
+
+					} catch (ClassNotFoundException | SQLException | AccountNotFoundException e) {
+					
+						e.printStackTrace();
+					}break;
+					
+				}
+			}
+				else 
+					break;
 		} while (true);
 	}
 
-	private  void performSort(int choice) {
-		
-		switch (choice) {
-		case 1:{
-			List<SavingsAccount> listOne;
-			try {
-				listOne = savingsAccountService.sortBy(choice);
-				for (SavingsAccount accountListOne :listOne){
-					System.out.println(accountListOne);
-				}
-			} catch (ClassNotFoundException | SQLException
-					| AccountNotFoundException e) {
-				e.printStackTrace();
-			}
-			
-		}break;
-		case 2:{
-			List<SavingsAccount> listTwo;
-			try {
-				listTwo = savingsAccountService.sortBy(choice);
-				for (SavingsAccount accountListTwo :listTwo){
-					System.out.println(accountListTwo);
-				}
-			} catch (ClassNotFoundException | SQLException
-					| AccountNotFoundException e) {
-				e.printStackTrace();
-			}
-			
-		}break;
-		case 3:{
-				List<SavingsAccount> listThree;
-				try {
-					listThree = savingsAccountService.sortBy(choice);
-					for (SavingsAccount nameListOne :listThree){
-						System.out.println(nameListOne);
-					}
-					System.out.println(listThree);
-				} catch (ClassNotFoundException | SQLException
-						| AccountNotFoundException e) {
-					e.printStackTrace();
-				}
-		}break;
-		case 4:{
-			List<SavingsAccount> listFour;
-			try {
-				listFour = savingsAccountService.sortBy(choice);
-				for (SavingsAccount nameListTwo :listFour){
-					System.out.println(nameListTwo);
-				}
-				System.out.println(listFour);
-			} catch (ClassNotFoundException | SQLException
-					| AccountNotFoundException e) {
-				e.printStackTrace();
-			}
-		}break;
-		case 5:{
-			List<SavingsAccount> listFive;
-			try {
-				listFive = savingsAccountService.sortBy(choice);
-				for (SavingsAccount balanceListOne :listFive){
-					System.out.println(balanceListOne);
-				}
-				System.out.println(listFive);
-			} catch (ClassNotFoundException | SQLException
-					| AccountNotFoundException e) {
-				e.printStackTrace();
-			}
-		}break;
-		case 6:{
-			List<SavingsAccount> listSix;
-			try {
-				listSix = savingsAccountService.sortBy(choice);
-				for (SavingsAccount balanceListTwo :listSix){
-					System.out.println(balanceListTwo);
-				}
-				System.out.println(listSix);
-			} catch (ClassNotFoundException | SQLException
-					| AccountNotFoundException e) {
-				e.printStackTrace();
-			}
-			
-		}break;
-		case 7:
-			return;
-		default:
-			break;
-	}
-
-	
-	}
-
 }
+
+

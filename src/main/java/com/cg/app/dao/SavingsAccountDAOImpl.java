@@ -173,33 +173,36 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
 	}
 
 	@Override
-	public List<SavingsAccount> sortBy(int choice) throws SQLException, ClassNotFoundException, AccountNotFoundException {
-		List<SavingsAccount> sortAccounts = new ArrayList<>();
-		String query = "SELECT * FROM ACCOUNT";
+	public List<SavingsAccount> sortBy(int choice,int choiceSort) throws SQLException, ClassNotFoundException, AccountNotFoundException {
+		Connection connection = DBUtil.getConnection();
+		SavingsAccount savingsAccount= null;
+		String query = " ";
 		switch(choice){
 		case 1:
+			
+		if(choiceSort == 1) {
 			query = "SELECT * From account ORDER BY account_Id";
-			break;
-		case 2:
+		}
+		else
 			query = "SELECT * From account ORDER BY account_Id DESC";
+			
+		break;
+		case 2:
+			if(choiceSort == 1)
+				query = "SELECT * From account ORDER BY account_hn";
+			else
+				query = "SELECT * From account ORDER BY account_hn DESC";
 			break;
 		case 3:
-			query = "SELECT * From account ORDER BY account_hn";
+			if(choiceSort == 1)
+				query = "SELECT * From account ORDER BY account_balance ";
+			else
+				query = "SELECT * From account ORDER BY account_balance DESC";
 			break;
-		case 4:
-			query = "SELECT * From account ORDER BY account_hn DESC";
-			break;
-		case 5:
-			query = "SELECT * From account ORDER BY account_balance ";
-			break;
-		case 6:
-			query = "SELECT * From account ORDER BY account_balance DESC";
-			break;
-		default:
-			break;
-
+	
 		}
-		Connection connection = DBUtil.getConnection();
+		List<SavingsAccount> sortAccounts = new ArrayList<>();
+		
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(query);
 		while (resultSet.next()) {
@@ -207,10 +210,11 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
 			String accountHolderName = resultSet.getString("account_hn");
 			double accountBalance = resultSet.getDouble(3);
 			boolean salary = resultSet.getBoolean("salary");
-			SavingsAccount savingsAccount = new SavingsAccount(accountNumber, accountHolderName, accountBalance,
+			savingsAccount = new SavingsAccount(accountNumber, accountHolderName, accountBalance,
 					salary);
 			sortAccounts.add(savingsAccount);
 		}
+		statement.close();
 		return sortAccounts;
 		}
 

@@ -95,10 +95,34 @@ public class SavingsAccountSpringJdbcDaoImpl implements SavingsAccountDAO {
 	}
 
 	@Override
-	public List<SavingsAccount> sortBy(int choice)
+	public List<SavingsAccount> sortBy(int choice,int choiceSort)
 			throws SQLException, ClassNotFoundException, AccountNotFoundException {
-		
-		return null;
+		String query = " ";
+		switch(choice){
+		case 1:
+			
+		if(choiceSort == 1) {
+			query = "SELECT * From account ORDER BY account_Id";
+		}
+		else
+			query = "SELECT * From account ORDER BY account_Id DESC";
+			
+		break;
+		case 2:
+			if(choiceSort == 1)
+				query = "SELECT * From account ORDER BY account_hn";
+			else
+				query = "SELECT * From account ORDER BY account_hn DESC";
+			break;
+		case 3:
+			if(choiceSort == 1)
+				query = "SELECT * From account ORDER BY account_balance ";
+			else
+				query = "SELECT * From account ORDER BY account_balance DESC";
+			break;
+	
+		}
+		return jdbctemplate.query(query, new SavingsAccountMapper());
 	}
 
 }

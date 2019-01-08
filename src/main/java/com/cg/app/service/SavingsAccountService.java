@@ -32,7 +32,7 @@ public interface SavingsAccountService {
 	List<SavingsAccount> getAllAccountsBetweenSalaryRange(double minimumRange, double maximumRange)
 			throws SQLException, ClassNotFoundException;
 	
-	List<SavingsAccount> sortBy(int choice) throws ClassNotFoundException, SQLException, AccountNotFoundException;
+	List<SavingsAccount> sortBy(int choice, int choiceSort) throws ClassNotFoundException, SQLException, AccountNotFoundException;
 }
 
 
